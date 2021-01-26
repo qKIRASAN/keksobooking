@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Кирилл Гадомский](https://up.htmlacademy.ru/javascript/22/user/990059).
-* Наставник: `Неизвестно`.
+* Наставник: [Алексей Хабиров](https://htmlacademy.ru/profile/alex_khab).
 
 ---
 
