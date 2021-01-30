@@ -1,6 +1,6 @@
 'use strict';
 
-const getRandomInteger = function (min, max) {
+const getRandomInteger = (min, max) => {
   const tip = 'Проверьте значения. Числа могут быть только положительными, значение max должно быть больше значения min';
   let result = Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -9,7 +9,7 @@ const getRandomInteger = function (min, max) {
 
 getRandomInteger(0, 67);
 
-const getRandomFloat = function (min, max, digits = 0) {
+const getRandomFloat = (min, max, digits = 0) => {
   const tip = 'Проверьте значения. Числа могут быть только положительными, значение max должно быть больше значения min';
   let result = (Math.random() * (max - min + 1) + min).toFixed(digits);
 
