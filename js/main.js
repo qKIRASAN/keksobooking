@@ -1,20 +1,24 @@
 'use strict';
 
 const getRandomInteger = (min, max) => {
-  const tip = 'Проверьте значения. Числа могут быть только положительными, значение max должно быть больше значения min';
-  let result = Math.floor(Math.random() * (max - min + 1) + min);
+  const error = 'Проверьте значения. Числа могут быть только положительными, значение max должно быть больше значения min';
+  const result = Math.floor(Math.random() * (max - min + 1) + min);
 
-  return (typeof min !== 'number' || min < 0 || typeof max !== 'number' || max < 0 || max <= min) ? tip : result;
+  if (typeof min !== 'number' || min < 0 || typeof max !== 'number' || max < 0 || max <= min) {
+    throw new Error(error);
+  }
+
+  return result;
 };
 
 getRandomInteger(0, 67);
 
 const getRandomFloat = (min, max, digits = 0) => {
-  const tip = 'Проверьте значения. Числа могут быть только положительными, значение max должно быть больше значения min';
-  let result = (Math.random() * (max - min + 1) + min).toFixed(digits);
+  const error = 'Проверьте значения. Числа могут быть только положительными, значение max должно быть больше значения min';
+  const result = (Math.random() * (max - min + 1) + min).toFixed(digits);
 
   if (typeof min !== 'number' || min < 0 || typeof max !== 'number' || max < 0 || max <= min) {
-    return tip;
+    throw new Error(error);
   }
 
   return result;
