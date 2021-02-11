@@ -1,4 +1,9 @@
-import {getRandomInteger, getRandomFloat, getRandomArrayElement, getUniqueArrayElements} from './util.js';
+import {
+  getRandomInteger,
+  getRandomFloat,
+  getRandomArrayElement,
+  getUniqueArrayElements
+} from './util.js';
 
 const OFFER_TITLES = [
   'M-1 Tokyo Shimomaruko',
@@ -80,4 +85,8 @@ const createAnnouncement = () => {
   };
 };
 
-export {createAnnouncement};
+const createSeveralAnnouncements = (quantity) => {
+  return new Array(quantity).fill(null).map(createAnnouncement);
+};
+
+export {createSeveralAnnouncements};

@@ -32,4 +32,9 @@ const getUniqueArrayElements = (elements) => {
   return [...new Set(randomArray)];
 };
 
-export {getRandomInteger, getRandomFloat, getRandomArrayElement, getUniqueArrayElements};
+export {
+  getRandomInteger,
+  getRandomFloat,
+  getRandomArrayElement,
+  getUniqueArrayElements
+};
