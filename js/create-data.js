@@ -5,6 +5,14 @@ import {
   getUniqueArrayElements
 } from './util.js';
 
+const ANNOUNCEMENT_QUANTITY = 1;
+const MIN_PRICE = 9500;
+const MAX_PRICE = 30000;
+const MIN_ROOMS = 1;
+const MAX_ROOMS = 5;
+const MIN_GUESTS = 1;
+const MAX_GUESTS = 3;
+
 const OFFER_TITLES = [
   'M-1 Tokyo Shimomaruko',
   'Studio Inn Nishi Shinjuku',
@@ -68,10 +76,10 @@ const createAnnouncement = () => {
     offer: {
       title: getRandomArrayElement(OFFER_TITLES),
       address: `${coordinateX}, ${coordinateY}`,
-      price: getRandomInteger(9500, 30000),
+      price: getRandomInteger(MIN_PRICE, MAX_PRICE),
       type: getRandomArrayElement(OFFER_TYPES),
-      rooms: getRandomInteger(1, 5),
-      guests: getRandomInteger(1, 3),
+      rooms: getRandomInteger(MIN_ROOMS, MAX_ROOMS),
+      guests: getRandomInteger(MIN_GUESTS, MAX_GUESTS),
       checkin: getRandomArrayElement(OFFER_CHECKINS),
       checkout: getRandomArrayElement(OFFER_CHECKOUTS),
       features: getUniqueArrayElements(OFFER_FEATURES),
@@ -85,8 +93,8 @@ const createAnnouncement = () => {
   };
 };
 
-const createSeveralAnnouncements = (quantity) => {
-  return new Array(quantity).fill(null).map(createAnnouncement);
+const createSeveralAnnouncements = () => {
+  return new Array(ANNOUNCEMENT_QUANTITY).fill(null).map(createAnnouncement);
 };
 
 export {createSeveralAnnouncements};
