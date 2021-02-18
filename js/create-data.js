@@ -5,13 +5,19 @@ import {
   getUniqueArrayElements
 } from './util.js';
 
-const ANNOUNCEMENT_QUANTITY = 1;
-const MIN_PRICE = 9500;
-const MAX_PRICE = 30000;
-const MIN_ROOMS = 1;
-const MAX_ROOMS = 5;
-const MIN_GUESTS = 1;
-const MAX_GUESTS = 3;
+const ANNOUNCEMENT_QUANTITY = 10;
+const X_COORDINATE_MIN = 35.65000;
+const X_COORDINATE_MAX = 35.70000;
+const Y_COORDINATE_MIN = 139.70000;
+const Y_COORDINATE_MAX = 139.80000;
+const IMG_MIN = 1;
+const IMG_MAX = 8;
+const PRICE_MIN = 9500;
+const PRICE_MAX = 30000;
+const ROOMS_MIN = 1;
+const ROOMS_MAX = 5;
+const GUESTS_MIN = 1;
+const GUESTS_MAX = 3;
 
 const OFFER_TITLES = [
   'M-1 Tokyo Shimomaruko',
@@ -66,20 +72,20 @@ const OFFER_PHOTOS = [
 ];
 
 const createAnnouncement = () => {
-  const coordinateX = getRandomFloat(35.65000,35.70000);
-  const coordinateY = getRandomFloat(139.70000,139.80000);
+  const coordinateX = getRandomFloat(X_COORDINATE_MIN, X_COORDINATE_MAX);
+  const coordinateY = getRandomFloat(Y_COORDINATE_MIN, Y_COORDINATE_MAX);
 
   return {
     author: {
-      avatar: `img/avatars/user0${getRandomInteger(1, 8)}.png`,
+      avatar: `img/avatars/user0${getRandomInteger(IMG_MIN, IMG_MAX)}.png`,
     },
     offer: {
       title: getRandomArrayElement(OFFER_TITLES),
       address: `${coordinateX}, ${coordinateY}`,
-      price: getRandomInteger(MIN_PRICE, MAX_PRICE),
+      price: getRandomInteger(PRICE_MIN, PRICE_MAX),
       type: getRandomArrayElement(OFFER_TYPES),
-      rooms: getRandomInteger(MIN_ROOMS, MAX_ROOMS),
-      guests: getRandomInteger(MIN_GUESTS, MAX_GUESTS),
+      rooms: getRandomInteger(ROOMS_MIN, ROOMS_MAX),
+      guests: getRandomInteger(GUESTS_MIN, GUESTS_MAX),
       checkin: getRandomArrayElement(OFFER_CHECKINS),
       checkout: getRandomArrayElement(OFFER_CHECKOUTS),
       features: getUniqueArrayElements(OFFER_FEATURES),
