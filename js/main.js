@@ -1,5 +1,5 @@
-import {createSeveralAnnouncements} from './create-data.js';
+import {renderAnnouncement} from './popup.js';
 
-const ANNOUNCEMENT_QUANTITY = 10;
+const ANNOUNCEMENT_QUANTITY = 1;
 
-createSeveralAnnouncements(ANNOUNCEMENT_QUANTITY);
+renderAnnouncement(ANNOUNCEMENT_QUANTITY);

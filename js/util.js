@@ -1,3 +1,5 @@
+const NUMBER_OF_DECIMALS = 5;
+
 const getRandomInteger = (min, max) => {
   const error = 'Проверьте значения. Числа могут быть только положительными, значение max должно быть больше значения min';
   const result = Math.floor(Math.random() * (max - min + 1) + min);
@@ -9,7 +11,7 @@ const getRandomInteger = (min, max) => {
   return result;
 };
 
-const getRandomFloat = (min, max, digits = 5) => {
+const getRandomFloat = (min, max, digits = NUMBER_OF_DECIMALS) => {
   const error = 'Проверьте значения. Числа могут быть только положительными, значение max должно быть больше значения min';
   const result = (Math.random() * (max - min + 1) + min).toFixed(digits);
 
@@ -32,9 +34,33 @@ const getUniqueArrayElements = (elements) => {
   return [...new Set(randomArray)];
 };
 
+const getDeclensionOfNouns = (number, nouns) => {
+  number = Math.abs(number);
+
+  if (number > 20) {
+    number %= 10;
+  }
+
+  if (number > 100) {
+    number %= 100;
+  }
+
+  switch (number) {
+    case 1:
+      return nouns[0];
+    case 2:
+    case 3:
+    case 4:
+      return nouns[1];
+    default:
+      return nouns[2];
+  }
+};
+
 export {
   getRandomInteger,
   getRandomFloat,
   getRandomArrayElement,
-  getUniqueArrayElements
+  getUniqueArrayElements,
+  getDeclensionOfNouns
 };
