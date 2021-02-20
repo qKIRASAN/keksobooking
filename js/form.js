@@ -10,20 +10,25 @@ const housingPrice = {
   palace: 10000,
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+const syncPrice = () => {
   price.placeholder = housingPrice[housingType.value];
   price.min = housingPrice[housingType.value];
-}, {once: true});
+};
 
-housingType.addEventListener('change', (evt) => {
-  price.placeholder = housingPrice[evt.target.value];
-  price.min = housingPrice[evt.target.value];
-});
+const syncTime = (evt) => {
+  if (timeIn) {
+    timeOut.value = evt.target.value;
+  }
 
-timeIn.addEventListener('change', (evt) => {
-  timeOut.value = evt.target.value;
-});
+  if (timeOut) {
+    timeIn.value = evt.target.value;
+  }
+};
 
-timeOut.addEventListener('change', (evt) => {
-  timeIn.value = evt.target.value;
-});
+document.addEventListener('DOMContentLoaded', syncPrice, {once: true});
+
+housingType.addEventListener('change', syncPrice);
+
+timeIn.addEventListener('change', syncTime);
+
+timeOut.addEventListener('change', syncTime);
