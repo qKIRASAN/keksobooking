@@ -1,57 +1,29 @@
 const housingType = document.querySelector('#type');
 const price = document.querySelector('#price');
-
-housingType.addEventListener('change', (evt) => {
-  const target = evt.target;
-  switch(target.value) {
-    case 'bungalow':
-      price.setAttribute('min', '0');
-      price.placeholder = 0;
-      break;
-    case 'flat':
-      price.setAttribute('min', '1000');
-      price.placeholder = 1000;
-      break;
-    case 'house':
-      price.setAttribute('min', '5000');
-      price.placeholder = 5000;
-      break;
-    case 'palace':
-      price.setAttribute('min', '10000');
-      price.placeholder = 10000;
-      break;
-  }
-});
-
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
 
+const housingPrice = {
+  bungalow: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000,
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  price.placeholder = housingPrice[housingType.value];
+  price.min = housingPrice[housingType.value];
+}, {once: true});
+
+housingType.addEventListener('change', (evt) => {
+  price.placeholder = housingPrice[evt.target.value];
+  price.min = housingPrice[evt.target.value];
+});
+
 timeIn.addEventListener('change', (evt) => {
-  const target = evt.target;
-  switch(target.value) {
-    case '12:00':
-      timeOut.value = '12:00';
-      break;
-    case '13:00':
-      timeOut.value = '13:00';
-      break;
-    case '14:00':
-      timeOut.value = '14:00';
-      break;
-  }
+  timeOut.value = evt.target.value;
 });
 
 timeOut.addEventListener('change', (evt) => {
-  const target = evt.target;
-  switch(target.value) {
-    case '12:00':
-      timeIn.value = '12:00';
-      break;
-    case '13:00':
-      timeIn.value = '13:00';
-      break;
-    case '14:00':
-      timeIn.value = '14:00';
-      break;
-  }
+  timeIn.value = evt.target.value;
 });

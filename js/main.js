@@ -1,6 +1,9 @@
-import {renderAnnouncement} from './popup.js';
+import {createSeveralAnnouncements} from './create-data.js';
+import {renderAnnouncements} from './popup.js';
 import './form.js';
 
-const ANNOUNCEMENT_QUANTITY = 1;
+const map = document.querySelector('.map__canvas');
 
-renderAnnouncement(ANNOUNCEMENT_QUANTITY);
+const announcements = createSeveralAnnouncements();
+
+map.appendChild(renderAnnouncements(announcements[0]));
