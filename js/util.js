@@ -27,7 +27,7 @@ const getRandomArrayElement = (elements) => {
 };
 
 const getUniqueArrayElements = (elements) => {
-  const randomArray = new Array(getRandomInteger(1, elements.length)).fill(null).map(() => {
+  const randomArray = new Array(getRandomInteger(0, elements.length)).fill(null).map(() => {
     return getRandomArrayElement(elements);
   });
 
