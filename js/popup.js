@@ -31,7 +31,7 @@ const createPhotosList = (photos, photosList) => {
   });
 };
 
-const renderAnnouncements = ({author: {avatar}, offer}) => {
+const renderAnnouncement = ({author: {avatar}, offer}) => {
   const {
     title,
     address,
@@ -74,4 +74,4 @@ const renderAnnouncements = ({author: {avatar}, offer}) => {
   return announcement;
 };
 
-export {renderAnnouncements};
+export {renderAnnouncement};
