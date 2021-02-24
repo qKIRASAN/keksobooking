@@ -1,19 +1,46 @@
-const housingType = document.querySelector('#type');
-const price = document.querySelector('#price');
-const timeIn = document.querySelector('#timein');
-const timeOut = document.querySelector('#timeout');
+const filterForm = document.querySelector('.map__filters');
+const filterElements = filterForm.querySelectorAll('.map__filter');
+const filterFeatures = filterForm.querySelector('.map__features');
+const adForm = document.querySelector('.ad-form');
+const adFormHeader = adForm.querySelector('.ad-form-header');
+const adFormElements = adForm.querySelectorAll('.ad-form__element');
+const housingType = adForm.querySelector('#type');
+const price = adForm.querySelector('#price');
+const timeIn = adForm.querySelector('#timein');
+const timeOut = adForm.querySelector('#timeout');
+
 const housingPrice = {
   bungalow: 0,
   flat: 1000,
   house: 5000,
   palace: 10000,
 };
-const adForm = document.querySelector('.ad-form');
-const adFormHeader = document.querySelector('.ad-form-header');
-const adFormElements = document.querySelectorAll('.ad-form__element');
-const filterForm = document.querySelector('.map__filters');
-const filterElements = document.querySelectorAll('.map__filter');
-const filterFeatures = document.querySelector('.map__features');
+
+const deactivateFormElements = (elements) => {
+  elements.forEach((element) => element.disabled = true);
+};
+
+const activateFormElements = (elements) => {
+  elements.forEach((element) => element.disabled = false);
+};
+
+const deactivateForms = () => {
+  filterForm.classList.add('map__filters--disabled');
+  deactivateFormElements(filterElements);
+  filterFeatures.disabled = true;
+  adForm.classList.add('ad-form--disabled');
+  adFormHeader.disabled = true;
+  deactivateFormElements(adFormElements);
+};
+
+const activateForms = () => {
+  filterForm.classList.remove('map__filters--disabled');
+  activateFormElements(filterElements);
+  filterFeatures.disabled = false;
+  adForm.classList.remove('ad-form--disabled');
+  adFormHeader.disabled = false;
+  activateFormElements(adFormElements);
+};
 
 const selectTypeChangeHandler = () => {
   price.placeholder = housingPrice[housingType.value];
@@ -25,23 +52,11 @@ const selectTimeInTimeOutChangeHandler = (evt) => {
   timeIn.value = evt.target.value;
 };
 
-adForm.classList.add('ad-form--disabled');
-adFormHeader.setAttribute('disabled', '');
-adFormElements.forEach((element) => element.setAttribute('disabled', ''));
-filterForm.classList.add('map__filters--disabled');
-filterElements.forEach((element) => element.setAttribute('disabled', ''));
-filterFeatures.setAttribute('disabled', '');
+deactivateForms();
 
 document.addEventListener('DOMContentLoaded', selectTypeChangeHandler, {once: true});
 housingType.addEventListener('change', selectTypeChangeHandler);
 timeIn.addEventListener('change', selectTimeInTimeOutChangeHandler);
 timeOut.addEventListener('change', selectTimeInTimeOutChangeHandler);
 
-export {
-  adForm,
-  adFormHeader,
-  adFormElements,
-  filterForm,
-  filterElements,
-  filterFeatures
-};
+export {activateForms};

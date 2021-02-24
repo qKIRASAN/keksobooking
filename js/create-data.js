@@ -93,8 +93,8 @@ const createAnnouncement = () => {
       photos: getUniqueArrayElements(OFFER_PHOTOS),
     },
     location: {
-      x: coordinateX,
-      y: coordinateY,
+      lat: coordinateX,
+      lng: coordinateY,
     },
   };
 };

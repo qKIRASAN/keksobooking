@@ -13,7 +13,7 @@ const getRandomInteger = (min, max) => {
 
 const getRandomFloat = (min, max, digits = NUMBER_OF_DECIMALS) => {
   const error = 'Проверьте значения. Числа могут быть только положительными, значение max должно быть больше значения min';
-  const result = (Math.random() * (max - min + 1) + min).toFixed(digits);
+  const result = (Math.random() * (max - min) + min).toFixed(digits);
 
   if (min < 0 || max < 0 || max <= min) {
     throw new Error(error);
