@@ -10,11 +10,8 @@ const housingPrice = {
 };
 
 const filterForm = document.querySelector('.map__filters');
-const filterElements = filterForm.querySelectorAll('.map__filter');
-const filterFeatures = filterForm.querySelector('.map__features');
 const adForm = document.querySelector('.ad-form');
-const adFormHeader = adForm.querySelector('.ad-form-header');
-const adFormElements = adForm.querySelectorAll('.ad-form__element');
+const formElements = document.querySelectorAll('.map__filter, .map__features, .ad-form-header, .ad-form__element');
 const title = adForm.querySelector('#title');
 const housingType = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
@@ -33,38 +30,34 @@ const activateFormElements = (elements) => {
 
 const deactivateForms = () => {
   filterForm.classList.add('map__filters--disabled');
-  deactivateFormElements(filterElements);
-  filterFeatures.disabled = true;
   adForm.classList.add('ad-form--disabled');
-  adFormHeader.disabled = true;
-  deactivateFormElements(adFormElements);
+  deactivateFormElements(formElements);
 };
 
 const activateForms = () => {
   filterForm.classList.remove('map__filters--disabled');
-  activateFormElements(filterElements);
-  filterFeatures.disabled = false;
   adForm.classList.remove('ad-form--disabled');
-  adFormHeader.disabled = false;
-  activateFormElements(adFormElements);
+  activateFormElements(formElements);
 };
 
 const titleValidityHandler = () => {
   if (title.validity.valueMissing) {
     title.setCustomValidity(`Обязательное текстовое поле.
     Минимальная длина — ${TITLE_MIN_LENGTH} символов, максимальная длина — ${TITLE_MAX_LENGTH} символов`);
-  } else if (title.validity.tooShort) {
-    title.setCustomValidity(`Минимальная длина заголовка объявления — 30 символов.
+  }
+};
+
+const titleChangeHandler = () => {
+  if (title.validity.tooShort) {
+    title.setCustomValidity(`Минимальная длина заголовка объявления — ${TITLE_MIN_LENGTH} символов.
     Необходимо ввести ещё ${TITLE_MIN_LENGTH - title.value.length} символов`);
   } else if (title.validity.tooLong) {
-    title.setCustomValidity(`Минимальная длина заголовка объявления — 30 символов.
+    title.setCustomValidity(`Минимальная длина заголовка объявления — ${TITLE_MIN_LENGTH} символов.
     Необходимо удалить ещё ${title.value.length - TITLE_MAX_LENGTH} символов`);
   } else {
     title.setCustomValidity('');
   }
-};
 
-const titleInputHandler = () => {
   title.reportValidity();
 };
 
@@ -90,20 +83,16 @@ const roomNumberLoadHandler = () => {
   capacity.value = roomNumber.value;
 };
 
-const roomNumberChangeHandler = (evt) => {
-  capacity.value = evt.target.value;
-  if (capacity.value < 1) {
-    capacity.value = 0;
-  }
-
-  capacity.setCustomValidity('');
-};
-
 const capacityChangeHandler = () => {
-  if (Number(roomNumber.value) < 100 && Number(capacity.value) < 1 || Number(capacity.value) > Number(roomNumber.value)) {
+  const QUANTITY_MIN = 0;
+  const QUANTITY_MAX = 100;
+  const roomNumberValue = Number(roomNumber.value);
+  const capacityValue = Number(capacity.value);
+
+  if (roomNumberValue < QUANTITY_MAX && capacityValue < 1 || capacityValue > roomNumberValue) {
     capacity.setCustomValidity(`Укажите количество гостей. Минимальное количество - 1.
     Максимальное количество гостей - ${roomNumber.value}`);
-  } else if (Number(roomNumber.value) >= 100 && Number(capacity.value) > 0) {
+  } else if (roomNumberValue >= QUANTITY_MAX && capacityValue > QUANTITY_MIN) {
     capacity.setCustomValidity('Слишком много комнат. Выберите пункт "не для гостей"');
   } else {
     capacity.setCustomValidity('');
@@ -112,18 +101,16 @@ const capacityChangeHandler = () => {
   capacity.reportValidity();
 };
 
-
 deactivateForms();
 
 document.addEventListener('DOMContentLoaded', typeChangeHandler, {once: true});
 document.addEventListener('DOMContentLoaded', roomNumberLoadHandler, {once: true});
 title.addEventListener('invalid', titleValidityHandler);
-title.addEventListener('input', titleInputHandler);
+title.addEventListener('change', titleChangeHandler);
 housingType.addEventListener('change', typeChangeHandler);
 price.addEventListener('invalid', priceValidityHandler);
 timeIn.addEventListener('change', timeInTimeOutChangeHandler);
 timeOut.addEventListener('change', timeInTimeOutChangeHandler);
-roomNumber.addEventListener('change', roomNumberChangeHandler);
 capacity.addEventListener('change', capacityChangeHandler);
 
 export {activateForms};
