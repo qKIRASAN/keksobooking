@@ -1,6 +1,5 @@
-import {createSeveralAnnouncements} from './create-data.js';
 import {createPins} from './map.js';
-import './form.js';
+import {receiveData} from './fetch.js';
+import {createWarning} from './form.js';
 
-const announcements = createSeveralAnnouncements();
-createPins(announcements);
+receiveData(createPins, createWarning);

@@ -49,6 +49,7 @@ const mainPin = L.marker(
   {
     draggable: true,
     icon: mainPinIcon,
+    riseOnHover: true,
   },
 );
 
@@ -82,6 +83,20 @@ const createPins = (announcements) => {
   });
 };
 
+const resetMapToInitial = () => {
+  map.setView(
+    {
+      lat: MapSettings.LAT,
+      lng: MapSettings.LNG,
+    }, MapSettings.ZOOM);
+  mainPin.setLatLng(
+    {
+      lat: MapSettings.LAT,
+      lng: MapSettings.LNG,
+    });
+  address.value = `${mainPin._latlng.lat}, ${mainPin._latlng.lng}`;
+};
+
 mapLayer.addTo(map);
 mainPin.addTo(map);
 address.readOnly = true;
@@ -92,4 +107,4 @@ mainPin.on('move', (evt) => {
   address.value = `${lat.toFixed(NUMBER_OF_DECIMALS)}, ${lng.toFixed(NUMBER_OF_DECIMALS)}`;
 });
 
-export {createPins};
+export {createPins, resetMapToInitial};
