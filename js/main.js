@@ -1,5 +1,5 @@
+import {receiveData} from './api.js';
 import {createPins} from './map.js';
-import {receiveData} from './fetch.js';
-import {createWarning} from './form.js';
+import {createWarning} from './message.js';
 
 receiveData(createPins, createWarning);

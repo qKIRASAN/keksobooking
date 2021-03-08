@@ -1,10 +1,12 @@
-import {sendData} from './fetch.js';
+import {sendData} from './api.js';
 import {resetMapToInitial} from './map.js';
+import {createSuccessfullySent, createFailedToSend} from './message.js';
 
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
 const PRICE_MAX = 1000000;
-const DELAY = 3000;
+const QUANTITY_MIN = 0;
+const QUANTITY_MAX = 100;
 
 const housingPrice = {
   bungalow: 0,
@@ -13,13 +15,9 @@ const housingPrice = {
   palace: 10000,
 };
 
-const main = document.querySelector('.main');
 const filterForm = document.querySelector('.map__filters');
 const adForm = document.querySelector('.ad-form');
 const formElements = document.querySelectorAll('.map__filter, .map__features, .ad-form-header, .ad-form__element');
-const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-const failMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-const warningMessageTemplate = document.querySelector('#warning').content.querySelector('.warning');
 const title = adForm.querySelector('#title');
 const housingType = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
@@ -93,8 +91,6 @@ const roomNumberLoadHandler = () => {
 };
 
 const capacityChangeHandler = () => {
-  const QUANTITY_MIN = 0;
-  const QUANTITY_MAX = 100;
   const roomNumberValue = Number(roomNumber.value);
   const capacityValue = Number(capacity.value);
 
@@ -108,46 +104,6 @@ const capacityChangeHandler = () => {
   }
 
   capacity.reportValidity();
-};
-
-const createMessage = (template, reset) => {
-  const message = template.cloneNode(true);
-
-  if (reset) {
-    resetFormHandler();
-  }
-
-  main.appendChild(message);
-  removeMessage(message);
-};
-
-const removeMessage = (message) => {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      message.remove();
-    }
-  });
-
-  document.addEventListener('click', () => {
-    message.remove();
-  });
-};
-
-const createSuccessfullySent = () => {
-  createMessage(successMessageTemplate, true);
-};
-
-const createFailedToSend = () => {
-  createMessage(failMessageTemplate);
-};
-
-const createWarning = () => {
-  createMessage(warningMessageTemplate);
-  const message = main.querySelector('.warning');
-
-  setTimeout(() => {
-    message.remove();
-  }, DELAY);
 };
 
 const submitFormHandler = (evt) => {
@@ -182,4 +138,4 @@ capacity.addEventListener('change', capacityChangeHandler);
 adForm.addEventListener('submit', submitFormHandler);
 resetButton.addEventListener('click', resetFormHandler);
 
-export {activateForms, createWarning};
+export {activateForms, resetFormHandler}

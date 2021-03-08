@@ -57,10 +57,15 @@ const getDeclensionOfNouns = (number, nouns) => {
   }
 };
 
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape';
+};
+
 export {
   getRandomInteger,
   getRandomFloat,
   getRandomArrayElement,
   getUniqueArrayElements,
-  getDeclensionOfNouns
+  getDeclensionOfNouns,
+  isEscEvent
 };

@@ -1,4 +1,4 @@
-const ANNOUNCEMENT_QUANTITY = 10;
+const API_URL = 'https://22.javascript.pages.academy/keksobooking';
 
 const checkStatus = (response) => {
   const {status, statusText} = response;
@@ -10,24 +10,22 @@ const checkStatus = (response) => {
 };
 
 const receiveData = (onSuccess, onFail) => {
-  fetch('https://22.javascript.pages.academy/keksobooking/data')
+  fetch(`${API_URL}/data`)
     .then(checkStatus)
     .then((response) => response.json())
-    .then((announcements) => {
-      onSuccess(announcements.slice(0, ANNOUNCEMENT_QUANTITY));
-    })
-    .catch(() => onFail());
+    .then((data) => onSuccess(data))
+    .catch(onFail);
 };
 
 const sendData = (onSuccess, onFail, body) => {
-  fetch('https://22.javascript.pages.academy/keksobooking',
+  fetch(API_URL,
     {
       method: 'POST',
       body,
     })
     .then(checkStatus)
-    .then(() => onSuccess())
-    .catch(() => onFail());
+    .then(onSuccess)
+    .catch(onFail);
 };
 
 export {receiveData, sendData};
