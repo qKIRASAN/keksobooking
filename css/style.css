@@ -922,11 +922,12 @@ fieldset {
  */
 
 .success,
-.error {
+.error,
+.warning {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 1000;
 
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -944,7 +945,8 @@ fieldset {
 }
 
 .success__message,
-.error__message {
+.error__message,
+.warning__message {
   position: relative;
 
   color: #ffffff;
@@ -953,7 +955,8 @@ fieldset {
 }
 
 .success__message::before,
-.error__message::before {
+.error__message::before,
+.warning__message::before {
   content: "";
   position: absolute;
 
@@ -972,7 +975,8 @@ fieldset {
           transform: translateX(-50%);
 }
 
-.error__message::before {
+.error__message::before,
+.warning__message::before {
   background-image: url("../img/muffin-red.svg");
 }
 

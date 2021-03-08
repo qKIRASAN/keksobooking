@@ -1,6 +1,12 @@
+import {sendData} from './api.js';
+import {resetMapToInitial} from './map.js';
+import {createSuccessfullySent, createFailedToSend} from './message.js';
+
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
 const PRICE_MAX = 1000000;
+const QUANTITY_MIN = 0;
+const QUANTITY_MAX = 100;
 
 const housingPrice = {
   bungalow: 0,
@@ -19,6 +25,7 @@ const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
 const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
+const resetButton = adForm.querySelector('.ad-form__reset');
 
 const deactivateFormElements = (elements) => {
   elements.forEach((element) => element.disabled = true);
@@ -84,8 +91,6 @@ const roomNumberLoadHandler = () => {
 };
 
 const capacityChangeHandler = () => {
-  const QUANTITY_MIN = 0;
-  const QUANTITY_MAX = 100;
   const roomNumberValue = Number(roomNumber.value);
   const capacityValue = Number(capacity.value);
 
@@ -101,6 +106,24 @@ const capacityChangeHandler = () => {
   capacity.reportValidity();
 };
 
+const submitFormHandler = (evt) => {
+  const formData = new FormData(evt.target);
+
+  evt.preventDefault();
+  sendData(createSuccessfullySent, createFailedToSend, formData);
+};
+
+const resetFormHandler = (evt) => {
+  if (evt) {
+    evt.preventDefault();
+  }
+
+  filterForm.reset();
+  adForm.reset();
+  typeChangeHandler();
+  resetMapToInitial();
+};
+
 deactivateForms();
 
 document.addEventListener('DOMContentLoaded', typeChangeHandler, {once: true});
@@ -112,5 +135,7 @@ price.addEventListener('invalid', priceValidityHandler);
 timeIn.addEventListener('change', timeInTimeOutChangeHandler);
 timeOut.addEventListener('change', timeInTimeOutChangeHandler);
 capacity.addEventListener('change', capacityChangeHandler);
+adForm.addEventListener('submit', submitFormHandler);
+resetButton.addEventListener('click', resetFormHandler);
 
-export {activateForms};
+export {activateForms, resetFormHandler}

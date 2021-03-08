@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <main>
+  <main class="main">
     <div class="promo">
       <h1 class="promo__title visually-hidden">Keksobooking. Кексы по соседству</h1>
       <img src="img/keksobooking.svg" alt="Keksobooking. Кексы по соседству" width="215" height="45">
@@ -104,7 +104,7 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000" max="1000000" required>
+          <input id="price" name="price" type="number" placeholder="1000" max="1000000" required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
           <label class="ad-form__label" for="timein">Время заезда и выезда</label>
@@ -131,9 +131,9 @@
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="capacity">Количество мест</label>
           <select id="capacity" name="capacity" required>
-            <option value="3" selected>для 3 гостей</option>
+            <option value="3">для 3 гостей</option>
             <option value="2">для 2 гостей</option>
-            <option value="1">для 1 гостя</option>
+            <option value="1" selected>для 1 гостя</option>
             <option value="0">не для гостей</option>
           </select>
         </fieldset>
@@ -228,6 +228,13 @@
       <button type="button" class="error__button">Попробовать снова</button>
     </div>
   </template>
+
+  <template id="warning">
+    <div class="warning">
+      <p class="warning__message">К сожалению не удаётся загрузить данные. Попробуйте перезагрузить страницу</p>
+    </div>
+  </template>
+
   <script src="./leaflet/leaflet.js" crossorigin=""></script>
   <script src="./js/main.js" type="module"></script>
 </body>
