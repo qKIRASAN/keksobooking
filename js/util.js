@@ -69,6 +69,20 @@ const removeDisabled = (elements) => {
   elements.forEach((element) => element.disabled = false);
 };
 
+const debounce = (fn, delay) => {
+  let timeout;
+
+  return function () {
+    const fnCall = () => {
+      return fn.apply(this, arguments);
+    };
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(fnCall, delay);
+  };
+};
+
 export {
   getRandomInteger,
   getRandomFloat,
@@ -77,5 +91,6 @@ export {
   getDeclensionOfNouns,
   isEscEvent,
   setDisabled,
-  removeDisabled
+  removeDisabled,
+  debounce
 };

@@ -1,7 +1,8 @@
-import {setDisabled, removeDisabled} from './util.js';
-import {createPins} from './map.js';
-import {debounce} from './lodash-debounce.js';
+import {setDisabled, removeDisabled, debounce} from './util.js';
+import {renderPins} from './map.js';
+import {getFromStore} from './store.js';
 
+const ANNOUNCEMENT_QUANTITY_ON_MAP = 10;
 const DEFAULT_FILTER_VALUE = 'any';
 const DELAY = 500;
 
@@ -31,27 +32,24 @@ const checkFilterByType = ({offer}) => {
   return offer.type === filterType.value || filterType.value === DEFAULT_FILTER_VALUE;
 };
 
-const getFilteredAnnouncements = (announcements) => {
-  const filteredAnnouncements = [];
-
-  for (let announcement of announcements) {
+const filterAnnouncements = (announcements) => {
+  return announcements.filter((announcement) => {
     if (checkFilterByType(announcement)) {
-      filteredAnnouncements.push(announcement);
+      return announcement;
     }
-  }
-
-  return filteredAnnouncements;
+  });
 };
 
 const updateAnnouncements = debounce((announcements) => {
-  const filteredAnnouncements = getFilteredAnnouncements(announcements);
-  createPins(filteredAnnouncements);
+  const filteredAnnouncements = filterAnnouncements(announcements);
+  renderPins(filteredAnnouncements);
 }, DELAY);
 
-const setFilterEventListener = (announcements) => {
-  filterForm.addEventListener('change', () => {
-    updateAnnouncements(announcements);
-  })
+const setFilterEventListener = () => {
+  const announcements = getFromStore().slice(0, ANNOUNCEMENT_QUANTITY_ON_MAP);
+
+  filterForm.addEventListener('change', () => updateAnnouncements(announcements));
+  filterForm.addEventListener('reset', () => updateAnnouncements(announcements));
 };
 
 deactivateFilterForm();

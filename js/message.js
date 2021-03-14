@@ -1,7 +1,7 @@
 import {resetFormHandler} from './ad-form.js'
 import {isEscEvent} from './util.js'
 
-const DELAY = 3000;
+const DELAY = 1000;
 
 const main = document.querySelector('.main');
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
