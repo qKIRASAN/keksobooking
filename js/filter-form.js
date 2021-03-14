@@ -11,7 +11,7 @@ const filterType = filterForm.querySelector('#housing-type');
 // const filterPrice = filterForm.querySelector('#housing-price');
 // const filterRooms = filterForm.querySelector('#housing-rooms');
 // const filterGuests = filterForm.querySelector('#housing-guests');
-// const filterFeatures = filterForm.querySelector('#housing-features');
+// const filterFeatures = filterForm.querySelectorAll('.map__checkbox');
 
 const deactivateFilterForm = () => {
   filterForm.classList.add('map__filters--disabled');
@@ -27,15 +27,15 @@ const resetFilterForm = () => {
   filterForm.reset();
 };
 
-const filterByType = (announcement) => {
-  return announcement.offer.type === filterType.value || filterType.value === DEFAULT_FILTER_VALUE;
+const checkFilterByType = ({offer}) => {
+  return offer.type === filterType.value || filterType.value === DEFAULT_FILTER_VALUE;
 };
 
 const getFilteredAnnouncements = (announcements) => {
   const filteredAnnouncements = [];
 
   for (let announcement of announcements) {
-    if (filterByType(announcement)) {
+    if (checkFilterByType(announcement)) {
       filteredAnnouncements.push(announcement);
     }
   }
