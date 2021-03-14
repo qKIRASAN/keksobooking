@@ -1,6 +1,8 @@
+import {setDisabled, removeDisabled} from './util.js';
 import {sendData} from './api.js';
 import {resetMapToInitial} from './map.js';
-import {createSuccessfullySent, createFailedToSend} from './message.js';
+import {resetFilterForm} from './filter-form.js'
+import {createMessageOnSuccess, createMessageOnFailure} from './message.js';
 
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
@@ -15,9 +17,8 @@ const housingPrice = {
   palace: 10000,
 };
 
-const filterForm = document.querySelector('.map__filters');
 const adForm = document.querySelector('.ad-form');
-const formElements = document.querySelectorAll('.map__filter, .map__features, .ad-form-header, .ad-form__element');
+const formElements = document.querySelectorAll('.ad-form-header, .ad-form__element');
 const title = adForm.querySelector('#title');
 const housingType = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
@@ -27,24 +28,14 @@ const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const resetButton = adForm.querySelector('.ad-form__reset');
 
-const deactivateFormElements = (elements) => {
-  elements.forEach((element) => element.disabled = true);
-};
-
-const activateFormElements = (elements) => {
-  elements.forEach((element) => element.disabled = false);
-};
-
-const deactivateForms = () => {
-  filterForm.classList.add('map__filters--disabled');
+const deactivateAdForm = () => {
   adForm.classList.add('ad-form--disabled');
-  deactivateFormElements(formElements);
+  setDisabled(formElements);
 };
 
-const activateForms = () => {
-  filterForm.classList.remove('map__filters--disabled');
+const activateAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
-  activateFormElements(formElements);
+  removeDisabled(formElements);
 };
 
 const titleValidityHandler = () => {
@@ -110,7 +101,7 @@ const submitFormHandler = (evt) => {
   const formData = new FormData(evt.target);
 
   evt.preventDefault();
-  sendData(createSuccessfullySent, createFailedToSend, formData);
+  sendData(createMessageOnSuccess, createMessageOnFailure, formData);
 };
 
 const resetFormHandler = (evt) => {
@@ -118,13 +109,13 @@ const resetFormHandler = (evt) => {
     evt.preventDefault();
   }
 
-  filterForm.reset();
   adForm.reset();
   typeChangeHandler();
   resetMapToInitial();
+  resetFilterForm();
 };
 
-deactivateForms();
+deactivateAdForm();
 
 document.addEventListener('DOMContentLoaded', typeChangeHandler, {once: true});
 document.addEventListener('DOMContentLoaded', roomNumberLoadHandler, {once: true});
@@ -138,4 +129,4 @@ capacity.addEventListener('change', capacityChangeHandler);
 adForm.addEventListener('submit', submitFormHandler);
 resetButton.addEventListener('click', resetFormHandler);
 
-export {activateForms, resetFormHandler}
+export {activateAdForm, resetFormHandler}

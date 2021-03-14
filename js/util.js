@@ -61,11 +61,21 @@ const isEscEvent = (evt) => {
   return evt.key === 'Escape';
 };
 
+const setDisabled = (elements) => {
+  elements.forEach((element) => element.disabled = true);
+};
+
+const removeDisabled = (elements) => {
+  elements.forEach((element) => element.disabled = false);
+};
+
 export {
   getRandomInteger,
   getRandomFloat,
   getRandomArrayElement,
   getUniqueArrayElements,
   getDeclensionOfNouns,
-  isEscEvent
+  isEscEvent,
+  setDisabled,
+  removeDisabled
 };

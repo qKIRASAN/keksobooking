@@ -1,4 +1,4 @@
-import {resetFormHandler} from './form.js'
+import {resetFormHandler} from './ad-form.js'
 import {isEscEvent} from './util.js'
 
 const DELAY = 3000;
@@ -32,12 +32,12 @@ const messageClickHandler = (evt) => {
   document.removeEventListener('click', messageClickHandler);
 };
 
-const createSuccessfullySent = () => {
+const createMessageOnSuccess = () => {
   createMessage(successMessageTemplate);
   resetFormHandler();
 };
 
-const createFailedToSend = () => {
+const createMessageOnFailure = () => {
   createMessage(failMessageTemplate);
 };
 
@@ -50,4 +50,4 @@ const createWarning = () => {
   }, DELAY);
 };
 
-export {createSuccessfullySent, createFailedToSend, createWarning};
+export {createMessageOnSuccess, createMessageOnFailure, createWarning};
