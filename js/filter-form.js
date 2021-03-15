@@ -6,13 +6,18 @@ const ANNOUNCEMENT_QUANTITY_ON_MAP = 10;
 const DEFAULT_FILTER_VALUE = 'any';
 const DELAY = 500;
 
+const PriceRange = {
+  LOW: 10000,
+  HIGH: 50000,
+};
+
 const filterForm = document.querySelector('.map__filters');
 const formElements = filterForm.querySelectorAll('.map__filter, .map__features');
 const filterType = filterForm.querySelector('#housing-type');
-// const filterPrice = filterForm.querySelector('#housing-price');
-// const filterRooms = filterForm.querySelector('#housing-rooms');
-// const filterGuests = filterForm.querySelector('#housing-guests');
-// const filterFeatures = filterForm.querySelectorAll('.map__checkbox');
+const filterPrice = filterForm.querySelector('#housing-price');
+const filterRooms = filterForm.querySelector('#housing-rooms');
+const filterGuests = filterForm.querySelector('#housing-guests');
+const filterFeatures = filterForm.querySelectorAll('.map__checkbox');
 
 const deactivateFilterForm = () => {
   filterForm.classList.add('map__filters--disabled');
@@ -28,16 +33,59 @@ const resetFilterForm = () => {
   filterForm.reset();
 };
 
-const checkFilterByType = ({offer}) => {
+const filterByType = ({offer}) => {
   return offer.type === filterType.value || filterType.value === DEFAULT_FILTER_VALUE;
 };
 
-const filterAnnouncements = (announcements) => {
-  return announcements.filter((announcement) => {
-    if (checkFilterByType(announcement)) {
-      return announcement;
+const filterByPrice = ({offer}) => {
+  if (filterPrice.value === 'low') {
+    return offer.price < PriceRange.LOW;
+  }
+
+  if (filterPrice.value === 'middle') {
+    return offer.price >= PriceRange.LOW && offer.price < PriceRange.HIGH;
+  }
+
+  if (filterPrice.value === 'high') {
+    return offer.price >= PriceRange.HIGH;
+  }
+
+  return true;
+};
+
+const filterByRooms = ({offer}) => {
+  return offer.rooms === Number(filterRooms.value) || filterRooms.value === DEFAULT_FILTER_VALUE;
+};
+
+const filterByGuests = ({offer}) => {
+  return offer.guests === Number(filterGuests.value) || filterGuests.value === DEFAULT_FILTER_VALUE;
+};
+
+const filterByFeatures = ({offer}) => {
+  return [...filterFeatures].every((feature) => {
+    if (feature.checked) {
+      return offer.features.includes(feature.value);
+    } else {
+      return true;
     }
   });
+};
+
+const filterAnnouncements = (announcements) => {
+  const filteredAnnouncements = [];
+
+  for (let announcement of announcements) {
+    if (
+      filterByType(announcement) &&
+      filterByPrice(announcement) &&
+      filterByRooms(announcement) &&
+      filterByGuests(announcement) &&
+      filterByFeatures(announcement)
+    ) {
+      filteredAnnouncements.push(announcement);
+    }
+  }
+  return filteredAnnouncements;
 };
 
 const updateAnnouncements = debounce((announcements) => {
