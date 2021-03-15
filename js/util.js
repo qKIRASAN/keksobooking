@@ -61,11 +61,36 @@ const isEscEvent = (evt) => {
   return evt.key === 'Escape';
 };
 
+const setDisabled = (elements) => {
+  elements.forEach((element) => element.disabled = true);
+};
+
+const removeDisabled = (elements) => {
+  elements.forEach((element) => element.disabled = false);
+};
+
+const debounce = (fn, delay) => {
+  let timeout;
+
+  return function () {
+    const fnCall = () => {
+      return fn.apply(this, arguments);
+    };
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(fnCall, delay);
+  };
+};
+
 export {
   getRandomInteger,
   getRandomFloat,
   getRandomArrayElement,
   getUniqueArrayElements,
   getDeclensionOfNouns,
-  isEscEvent
+  isEscEvent,
+  setDisabled,
+  removeDisabled,
+  debounce
 };

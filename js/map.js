@@ -1,6 +1,6 @@
 /* global L:readonly */
 import {renderAnnouncement} from './popup.js';
-import {activateForms} from './form.js';
+import {activateAdForm} from './ad-form.js';
 
 const NUMBER_OF_DECIMALS = 5;
 const address = document.querySelector('#address');
@@ -20,7 +20,7 @@ const PinSize = {
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    activateForms();
+    activateAdForm();
   })
   .setView(
     {
@@ -53,7 +53,10 @@ const mainPin = L.marker(
   },
 );
 
+const pinLayer = L.layerGroup().addTo(map);
+
 const createPins = (announcements) => {
+  clearPinLayer();
   announcements.forEach((announcement) => {
     const {location: {lat, lng}} = announcement;
     const pinIcon = L.icon(
@@ -74,7 +77,7 @@ const createPins = (announcements) => {
       },
     );
 
-    pin.addTo(map);
+    pin.addTo(pinLayer);
     pin.bindPopup(renderAnnouncement(announcement),
       {
         keepInView: true,
@@ -83,7 +86,12 @@ const createPins = (announcements) => {
   });
 };
 
+const renderPins = (announcements) => createPins(announcements);
+
+const clearPinLayer = () => pinLayer.clearLayers();
+
 const resetMapToInitial = () => {
+  map.closePopup();
   map.setView(
     {
       lat: MapSettings.LAT,
@@ -107,4 +115,4 @@ mainPin.on('move', (evt) => {
   address.value = `${lat.toFixed(NUMBER_OF_DECIMALS)}, ${lng.toFixed(NUMBER_OF_DECIMALS)}`;
 });
 
-export {createPins, resetMapToInitial};
+export {renderPins, resetMapToInitial};
