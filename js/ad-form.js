@@ -3,6 +3,7 @@ import {sendData} from './api.js';
 import {resetMapToInitial} from './map.js';
 import {resetFilterForm} from './filter-form.js'
 import {createMessageOnSuccess, createMessageOnFailure} from './message.js';
+import {resetImage} from './upload-picture.js';
 
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
@@ -110,6 +111,7 @@ const resetFormHandler = (evt) => {
   }
 
   adForm.reset();
+  resetImage();
   typeChangeHandler();
   resetMapToInitial();
   resetFilterForm();
