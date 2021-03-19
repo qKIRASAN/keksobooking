@@ -69,15 +69,16 @@ const filterByFeatures = ({offer}) => {
 const filterAnnouncements = (announcements) => {
   const filteredAnnouncements = [];
 
-  for (let i = 0; i < announcements.length; i++) {
+  let i = 0;
+  while (filteredAnnouncements.length < ANNOUNCEMENT_QUANTITY_ON_MAP && announcements[i]) {
     if (filterByType(announcements[i]) &&
       filterByPrice(announcements[i]) &&
       filterByRooms(announcements[i]) &&
       filterByGuests(announcements[i]) &&
-      filterByFeatures(announcements[i]) &&
-      filteredAnnouncements.length < ANNOUNCEMENT_QUANTITY_ON_MAP) {
+      filterByFeatures(announcements[i])) {
       filteredAnnouncements.push(announcements[i]);
     }
+    i++;
   }
 
   return filteredAnnouncements;
