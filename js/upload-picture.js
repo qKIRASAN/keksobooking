@@ -2,21 +2,40 @@ const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 const DEFAULT_IMG = 'img/muffin-grey.svg';
 
 const userPic = document.querySelector('.ad-form-header__input');
-const userPicSource = document.querySelector('.ad-form-header__preview img');
+const userPicWrapper = document.querySelector('.ad-form-header__preview');
 const picture = document.querySelector('.ad-form__input');
-const pictureSource = document.querySelector('.ad-form__photo img');
+const pictureWrapper = document.querySelector('.ad-form__photo');
 
-const uploadImage = (input, imageSource) => {
+const createImgElement = (wrapper) => {
+  const img = document.createElement('img');
+  img.src = '';
+  img.width = 40;
+  img.height = 44;
+  img.alt = 'Фотография жилья';
+  if (wrapper === userPicWrapper) {
+    img.alt = 'Аватар пользователя';
+  }
+
+  return wrapper.appendChild(img);
+};
+
+const removeImgElement = (wrapper) => {
+  if (wrapper.children.length !== 0) wrapper.innerHTML = '';
+};
+
+const uploadImage = (input, wrapper) => {
   input.addEventListener('change', () => {
     const file = input.files[0];
     const fileName = file.name.toLowerCase();
-    const matches = FILE_TYPES.some((extension) => fileName.endsWith(extension));
+    const match = FILE_TYPES.some((extension) => fileName.endsWith(extension));
 
-    if (matches) {
+    if (match) {
       const reader = new FileReader();
 
       reader.addEventListener('load', () => {
-        imageSource.src = reader.result;
+        removeImgElement(wrapper);
+        createImgElement(wrapper);
+        wrapper.firstChild.src = reader.result;
       });
 
       reader.readAsDataURL(file);
@@ -24,12 +43,12 @@ const uploadImage = (input, imageSource) => {
   });
 };
 
-uploadImage(userPic, userPicSource);
-uploadImage(picture, pictureSource);
+uploadImage(userPic, userPicWrapper);
+uploadImage(picture, pictureWrapper);
 
 const resetImage = () => {
-  userPicSource.src = DEFAULT_IMG;
-  pictureSource.src = DEFAULT_IMG;
+  userPicWrapper.firstChild.src = DEFAULT_IMG;
+  pictureWrapper.innerHTML = '';
 };
 
 export {resetImage}
