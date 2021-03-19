@@ -17,7 +17,6 @@ const filterType = filterForm.querySelector('#housing-type');
 const filterPrice = filterForm.querySelector('#housing-price');
 const filterRooms = filterForm.querySelector('#housing-rooms');
 const filterGuests = filterForm.querySelector('#housing-guests');
-const filterFeatures = filterForm.querySelectorAll('.map__checkbox');
 
 const deactivateFilterForm = () => {
   filterForm.classList.add('map__filters--disabled');
@@ -62,29 +61,26 @@ const filterByGuests = ({offer}) => {
 };
 
 const filterByFeatures = ({offer}) => {
-  return [...filterFeatures].every((feature) => {
-    if (feature.checked) {
-      return offer.features.includes(feature.value);
-    } else {
-      return true;
-    }
-  });
+  const filterFeatures = filterForm.querySelectorAll('.map__checkbox:checked');
+
+  return [...filterFeatures].every((feature) => offer.features.includes(feature.value));
 };
 
 const filterAnnouncements = (announcements) => {
   const filteredAnnouncements = [];
 
-  for (let announcement of announcements) {
-    if (
-      filterByType(announcement) &&
-      filterByPrice(announcement) &&
-      filterByRooms(announcement) &&
-      filterByGuests(announcement) &&
-      filterByFeatures(announcement)
-    ) {
-      filteredAnnouncements.push(announcement);
+  let i = 0;
+  while (filteredAnnouncements.length < ANNOUNCEMENT_QUANTITY_ON_MAP && announcements[i]) {
+    if (filterByType(announcements[i]) &&
+      filterByPrice(announcements[i]) &&
+      filterByRooms(announcements[i]) &&
+      filterByGuests(announcements[i]) &&
+      filterByFeatures(announcements[i])) {
+      filteredAnnouncements.push(announcements[i]);
     }
+    i++;
   }
+
   return filteredAnnouncements;
 };
 
@@ -94,7 +90,7 @@ const updateAnnouncements = debounce((announcements) => {
 }, DELAY);
 
 const setFilterEventListener = () => {
-  const announcements = getFromStore().slice(0, ANNOUNCEMENT_QUANTITY_ON_MAP);
+  const announcements = getFromStore();
 
   filterForm.addEventListener('change', () => updateAnnouncements(announcements));
   filterForm.addEventListener('reset', () => updateAnnouncements(announcements));
