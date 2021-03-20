@@ -1,4 +1,6 @@
-/* global L:readonly */
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
 import {renderAnnouncement} from './popup.js';
 import {activateAdForm} from './ad-form.js';
 
