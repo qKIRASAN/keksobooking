@@ -31,6 +31,16 @@ const createPhotosList = (photos, photosList) => {
   });
 };
 
+const removeEmptyHtmlElements = (data) => {
+  const elements = Array.from(data.children);
+
+  elements.forEach((element) => {
+    if (element.src === '' || element.innerHTML === '' && element.tagName.toLowerCase() !== 'img') {
+      element.remove();
+    }
+  });
+};
+
 const renderAnnouncement = ({author: {avatar}, offer}) => {
   const {
     title,
@@ -67,11 +77,11 @@ const renderAnnouncement = ({author: {avatar}, offer}) => {
 
   featuresList.innerHTML = '';
   createFeaturesList(features, featuresList);
-  if (featuresList.children.length === 0) featuresList.remove();
 
   photosList.innerHTML = '';
   createPhotosList(photos, photosList);
-  if (photosList.children.length === 0) photosList.remove();
+
+  removeEmptyHtmlElements(announcement);
 
   return announcement;
 };
