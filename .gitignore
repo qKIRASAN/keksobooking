@@ -5,7 +5,8 @@
 *.pdf
 *.psd
 *.sublime*
-build/
+build/js
+build/css/leaflet.*
 node_modules/
 npm-debug.log*
 Thumbs.db

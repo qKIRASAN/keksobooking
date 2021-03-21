@@ -67,9 +67,11 @@ const renderAnnouncement = ({author: {avatar}, offer}) => {
 
   featuresList.innerHTML = '';
   createFeaturesList(features, featuresList);
+  if (featuresList.children.length === 0) featuresList.remove();
 
   photosList.innerHTML = '';
   createPhotosList(photos, photosList);
+  if (photosList.children.length === 0) photosList.remove();
 
   return announcement;
 };
