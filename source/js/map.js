@@ -5,7 +5,6 @@ import {renderAnnouncement} from './popup.js';
 import {activateAdForm} from './ad-form.js';
 
 const NUMBER_OF_DECIMALS = 5;
-const address = document.querySelector('#address');
 
 const MapSettings = {
   LAT: 35.68951,
@@ -19,6 +18,8 @@ const PinSize = {
   WIDTH: 40,
   HEIGHT: 40,
 };
+
+const address = document.querySelector('#address');
 
 const map = L.map('map-canvas')
   .on('load', () => {

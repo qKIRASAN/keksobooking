@@ -20,7 +20,9 @@ const createImgElement = (wrapper) => {
 };
 
 const removeImgElement = (wrapper) => {
-  if (wrapper.children.length !== 0) wrapper.innerHTML = '';
+  if (wrapper.children.length !== 0) {
+    wrapper.innerHTML = '';
+  }
 };
 
 const uploadImage = (input, wrapper) => {

@@ -9,23 +9,23 @@ const checkStatus = (response) => {
   return response;
 };
 
-const receiveData = (onSuccess, onFail) => {
+const receiveData = (successHandler, errorHandler) => {
   fetch(`${API_URL}/data`)
     .then(checkStatus)
     .then((response) => response.json())
-    .then((data) => onSuccess(data))
-    .catch(onFail);
+    .then((data) => successHandler(data))
+    .catch(errorHandler);
 };
 
-const sendData = (onSuccess, onFail, body) => {
+const sendData = (successHandler, errorHandler, body) => {
   fetch(API_URL,
     {
       method: 'POST',
       body,
     })
     .then(checkStatus)
-    .then(onSuccess)
-    .catch(onFail);
+    .then(successHandler)
+    .catch(errorHandler);
 };
 
 export {receiveData, sendData};
