@@ -1,4 +1,4 @@
-import {setDisabled, removeDisabled} from './util.js';
+import {toggleDisabled} from './util.js';
 import {sendData} from './api.js';
 import {resetMapToInitial} from './map.js';
 import {resetFilterForm} from './filter-form.js'
@@ -31,12 +31,12 @@ const resetButton = adForm.querySelector('.ad-form__reset');
 
 const deactivateAdForm = () => {
   adForm.classList.add('ad-form--disabled');
-  setDisabled(formElements);
+  toggleDisabled(formElements, true);
 };
 
 const activateAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
-  removeDisabled(formElements);
+  toggleDisabled(formElements, false);
 };
 
 const titleValidityHandler = () => {

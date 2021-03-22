@@ -1,4 +1,4 @@
-import {setDisabled, removeDisabled, debounce} from './util.js';
+import {toggleDisabled, debounce} from './util.js';
 import {renderPins} from './map.js';
 import {getFromStore} from './store.js';
 
@@ -20,12 +20,12 @@ const filterGuests = filterForm.querySelector('#housing-guests');
 
 const deactivateFilterForm = () => {
   filterForm.classList.add('map__filters--disabled');
-  setDisabled(formElements);
+  toggleDisabled(formElements, true);
 };
 
 const activateFilterForm = () => {
   filterForm.classList.remove('map__filters--disabled');
-  removeDisabled(formElements);
+  toggleDisabled(formElements, false);
 };
 
 const resetFilterForm = () => {

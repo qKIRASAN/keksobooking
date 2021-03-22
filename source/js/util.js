@@ -25,12 +25,8 @@ const isEscEvent = (evt) => {
   return evt.key === 'Escape';
 };
 
-const setDisabled = (elements) => {
-  elements.forEach((element) => element.disabled = true);
-};
-
-const removeDisabled = (elements) => {
-  elements.forEach((element) => element.disabled = false);
+const toggleDisabled = (elements, booleanValue) => {
+  elements.forEach((element) => element.disabled = booleanValue);
 };
 
 const debounce = (fn, delay) => {
@@ -50,7 +46,6 @@ const debounce = (fn, delay) => {
 export {
   getDeclensionOfNouns,
   isEscEvent,
-  setDisabled,
-  removeDisabled,
+  toggleDisabled,
   debounce
 };
